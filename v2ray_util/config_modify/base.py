@@ -138,13 +138,13 @@ def port():
             port_info = "{0}-{1}".format(group.port, group.end_port)
         else:
             port_info = group.port
-        print('{}: {}'.format(_("group port"), port_info))
-        new_port_info = input(_("please input new port(support range port(use '-' as separator), all range port can effect):"))
+        print('{} : {}'.format("Porta Atual", port_info))
+        new_port_info = input("Adicione sua porta nova : ")
         import re
         if new_port_info.isdecimal() or re.match(r'^\d+\-\d+$', new_port_info):
             gw = GroupWriter(group.tag, group.index)
             gw.write_port(new_port_info)
-            print(_('port modify success!'))
+            #print(_('port modify success!'))
             return True
         else:
             print(_("input error!"))
