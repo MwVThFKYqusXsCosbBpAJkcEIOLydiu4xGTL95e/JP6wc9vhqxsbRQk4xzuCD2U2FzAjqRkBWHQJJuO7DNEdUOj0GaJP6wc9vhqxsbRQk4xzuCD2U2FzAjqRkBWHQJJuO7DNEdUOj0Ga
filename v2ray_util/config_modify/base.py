@@ -138,16 +138,16 @@ def port():
             port_info = "{0}-{1}".format(group.port, group.end_port)
         else:
             port_info = group.port
-        print('{}: {}'.format("Porta atual : ", port_info))
-        new_port_info = input("Qual a nova porta desejada : ")
+        print('{}: {}'.format(_("group port"), port_info))
+        new_port_info = input(_("please input new port(support range port(use '-' as separator), all range port can effect):"))
         import re
         if new_port_info.isdecimal() or re.match(r'^\d+\-\d+$', new_port_info):
             gw = GroupWriter(group.tag, group.index)
             gw.write_port(new_port_info)
-            print("Porta modificada!")
+            print(_('port modify success!'))
             return True
         else:
-            print("Houve um erro, porta invalida!")
+            print(_("input error!"))
 
 @restart()
 def tfo():
