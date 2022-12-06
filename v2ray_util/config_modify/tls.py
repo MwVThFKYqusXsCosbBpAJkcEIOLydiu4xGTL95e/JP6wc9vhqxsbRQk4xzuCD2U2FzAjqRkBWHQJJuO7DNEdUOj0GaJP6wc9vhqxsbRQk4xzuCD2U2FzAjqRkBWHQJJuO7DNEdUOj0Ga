@@ -98,7 +98,7 @@ def modify():
         tm = TLSModifier(group.tag, group.index, xtls=xtls)
         tls_status = 'open' if group.tls in ('tls', 'xtls') else 'close'
         print("")
-        print("{} : {}\n".format("TLS Status"), tls_status.replace("open", "Aberto").replace("close", "Fechado"))
+        print("{} : {}\n".format("TLS Status", tls_status.replace("open", "Aberto").replace("close", "Fechado")))
         print("1 - Abrir TLS")
         print("2 - Fechar  TLS")
         print("")
