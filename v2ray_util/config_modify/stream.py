@@ -24,7 +24,7 @@ class StreamModifier:
         sw = StreamWriter(self.group_tag, self.group_index, sType)
         kw = {}
         if sType in (StreamType.TCP_HOST, StreamType.WS):
-            host = input("Adicione seu domínio falso : ")
+            host = input("Adicione seu domínio : ")
             kw['host'] = host
         elif sType == StreamType.SOCKS:
             user = input(_("please input socks user: "))
@@ -56,7 +56,7 @@ class StreamModifier:
                 gw.write_port(443)
                 sw = StreamWriter(self.group_tag, self.group_index, sType)
             if sType == StreamType.VLESS_WS:
-                host = input("Adicione seu domínio falso : ")
+                host = input("Adicione seu domínio : ")
                 kw['host'] = host
             elif sType == StreamType.VLESS_XTLS:
                 flow_list = xtls_flow()

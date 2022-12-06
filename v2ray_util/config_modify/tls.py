@@ -30,6 +30,7 @@ class TLSModifier:
         if choice in ("1", "2", "3"):
             if not input_domain:
                 local_ip = get_ip()
+                print("")
                 input_domain = input("Adicione seu domínio da vps : ")
                 try:
                     if is_ipv4(local_ip):
