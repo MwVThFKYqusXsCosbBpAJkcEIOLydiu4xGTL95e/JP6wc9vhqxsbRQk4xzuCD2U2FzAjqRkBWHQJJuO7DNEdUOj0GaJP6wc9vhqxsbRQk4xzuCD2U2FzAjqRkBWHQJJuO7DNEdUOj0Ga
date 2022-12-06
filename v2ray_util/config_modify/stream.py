@@ -24,7 +24,7 @@ class StreamModifier:
         sw = StreamWriter(self.group_tag, self.group_index, sType)
         kw = {}
         if sType in (StreamType.TCP_HOST, StreamType.WS):
-            host = input(_("please input fake domain: "))
+            host = input("Adicione seu domínio falso : ")
             kw['host'] = host
         elif sType == StreamType.SOCKS:
             user = input(_("please input socks user: "))
@@ -39,7 +39,6 @@ class StreamModifier:
         elif sType == StreamType.QUIC:
             key = ""
             security_list = ('none', "aes-128-gcm", "chacha20-poly1305")
-            print("")
             security = CommonSelector(security_list, _("please select ss method: ")).select()
             if security != "none":
                 key = ''.join(random.sample(string.ascii_letters + string.digits, 8))
@@ -47,23 +46,20 @@ class StreamModifier:
                 if new_pass:
                     key = new_pass
                     
-            print("")
             header = CommonSelector(header_type_list(), _("please select fake header: ")).select()
             kw = {'security': security, 'key': key, 'header': header}
         elif sType in (StreamType.VLESS_TLS, StreamType.VLESS_WS, StreamType.VLESS_XTLS, StreamType.VLESS_GRPC):
             port_set = all_port()
             if not "443" in port_set:
-                print()
-                print(ColorStr.yellow(_("auto switch 443 port..")))
+                #print(ColorStr.yellow(_("auto switch 443 port..")))
                 gw = GroupWriter(self.group_tag, self.group_index)
                 gw.write_port(443)
                 sw = StreamWriter(self.group_tag, self.group_index, sType)
             if sType == StreamType.VLESS_WS:
-                host = input(_("please input fake domain: "))
+                host = input("Adicione seu domínio falso : ")
                 kw['host'] = host
             elif sType == StreamType.VLESS_XTLS:
                 flow_list = xtls_flow()
-                print("")
                 flow = CommonSelector(flow_list, _("please select xtls flow type: ")).select()
                 kw = {'flow': flow}
             elif sType == StreamType.VLESS_GRPC and run_type == "xray":
@@ -79,8 +75,7 @@ class StreamModifier:
         elif sType == StreamType.TROJAN:
             port_set = all_port()
             if not "443" in port_set:
-                print()
-                print(ColorStr.yellow(_("auto switch 443 port..")))
+                #print(ColorStr.yellow(_("auto switch 443 port..")))
                 gw = GroupWriter(self.group_tag, self.group_index)
                 gw.write_port(443)
                 sw = StreamWriter(self.group_tag, self.group_index, sType)
@@ -113,18 +108,16 @@ def modify(group=None, sType=None):
 
         if sType != None:
             sm.select([v for v in StreamType if v.value == sType][0])
-            print(_("modify protocol success"))
+            #print(_("modify protocol success"))
             return
 
         if need_restart:
             print()
             #print("{}: {}".format(_("group protocol"), group.node_list[0].stream()))
 
-        print("")
         for index, stream_type in enumerate(sm.stream_type):
             print("{0} - {1}".format(index + 1, stream_type[1]))
 
-        print("")
         choice = input("Selecione o protocolo : ")
 
         if not choice.isdecimal():
@@ -135,6 +128,6 @@ def modify(group=None, sType=None):
                 if sm.stream_type[choice - 1][1] in ("MTProto", "Shadowsocks") and group.tls in ('tls', 'xtls'):
                     print(_("{} MTProto/Shadowsocks not support https, close tls success!".format(run_type.capitalize())))
                 sm.select(sm.stream_type[choice - 1][0])
-                print(_("modify protocol success"))
+                #print(_("modify protocol success"))
                 if need_restart:
                     return True

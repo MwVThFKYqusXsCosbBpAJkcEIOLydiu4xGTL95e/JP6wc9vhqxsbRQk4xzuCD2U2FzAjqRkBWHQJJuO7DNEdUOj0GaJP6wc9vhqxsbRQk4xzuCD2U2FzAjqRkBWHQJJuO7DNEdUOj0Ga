@@ -20,17 +20,17 @@ class TLSModifier:
     def turn_on(self, need_restart=True):
         cert_list=["letsencrypt", "zerossl", "buypass"]
         print("")
-        print(_("1. Let's Encrypt certificate"))
-        print(_("2. ZeroSSL certificate"))
-        print(_("3. BuyPass certificate"))
-        print(_("4. Customize certificate file path"))
-        print("")
-        choice = readchar(_("please select: "))
+        print("Qual certificado deseja instalar ?")
+        print("1 - Let's Encrypt certificate")
+        print("2 - ZeroSSL certificate")
+        print("3 - BuyPass certificate")
+        print("4 - Customize certificate file path")
+        choice = readchar("Selecione o certificado : ")
         input_domain, input_email = self.domain, ""
         if choice in ("1", "2", "3"):
             if not input_domain:
                 local_ip = get_ip()
-                input_domain = input(_("please input your vps domain: "))
+                input_domain = input("Adicione seu domínio da vps : ")
                 try:
                     if is_ipv4(local_ip):
                         socket.gethostbyname(input_domain)
@@ -52,7 +52,7 @@ class TLSModifier:
                         continue
                     break
 
-            print(_("auto generate SSL certificate, please wait.."))
+            #print(_("auto generate SSL certificate, please wait.."))
             V2ray.stop()
             gen_cert(input_domain, cert_list[int(choice) - 1], input_email)
             crt_file = "/root/.acme.sh/" + input_domain +"_ecc"+ "/fullchain.cer"
