@@ -117,8 +117,8 @@ def modify(group=None, sType=None):
             return
 
         if need_restart:
-            print("")
-            print("{}: {}".format(_("group protocol"), group.node_list[0].stream()))
+            print()
+            #print("{}: {}".format(_("group protocol"), group.node_list[0].stream()))
 
         print("")
         for index, stream_type in enumerate(sm.stream_type):
