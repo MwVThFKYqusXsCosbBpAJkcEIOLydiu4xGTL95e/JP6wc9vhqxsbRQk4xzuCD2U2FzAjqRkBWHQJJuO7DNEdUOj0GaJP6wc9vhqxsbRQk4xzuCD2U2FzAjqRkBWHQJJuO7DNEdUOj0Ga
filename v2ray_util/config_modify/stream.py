@@ -125,7 +125,7 @@ def modify(group=None, sType=None):
             print("{0} - {1}".format(index + 1, stream_type[1]))
 
         print("")
-        choice = input(_("please select new protocol: "))
+        choice = input("Selecione o protocolo : ")
 
         if not choice.isdecimal():
             print(_("please input number!"))
